@@ -78,7 +78,7 @@ FeedRead.get = function(feed_url, encoding, callback) {
   writer.on('finish', function() {
     return writer.close(function() {
       var body, type;
-      body = fs.readFileSync(fileName);
+      body = fs.readFileSync(fileName, "UTF-8");
       type = FeedRead.identify(body);
       if (type == "atom") {
         return FeedRead.atom(body, feed_url, callback);
