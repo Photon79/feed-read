@@ -18,14 +18,14 @@ var request    = require('request')
 //              * "feed" - {name, source, link}
 // 
 // Returns nothing.
-var FeedRead = module.exports = function(feed_url, callback) {
+var FeedRead = module.exports = function(feed_url, encoding, callback) {
   if (feed_url instanceof Array) {
     var feed_urls = feed_url
       , articles  = [];
     var next = function(i) {
       var feed_url = feed_urls[i];
       if (!feed_url) return callback(null, articles);
-      FeedRead.get(feed_url, function(err, _articles) {
+      FeedRead.get(feed_url, encoding, function(err, _articles) {
         if (err) return callback(err);
         articles = articles.concat(_articles);
         next(i + 1);
@@ -33,7 +33,7 @@ var FeedRead = module.exports = function(feed_url, callback) {
     };
     next(0);
   } else {
-    FeedRead.get(feed_url, callback);
+    FeedRead.get(feed_url, encoding, callback);
   }
 };
 
