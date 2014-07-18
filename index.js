@@ -1,6 +1,8 @@
 var request    = require('request')
   , sax        = require('sax')
-  , _          = require('underscore');
+  , _          = require('underscore')
+  , Iconv      = require('iconv').Iconv;
+
 
 
 // Public: Fetch the articles from the RSS or ATOM feed.
@@ -58,9 +60,13 @@ FeedRead.identify = function(xml) {
 // feed_url - String url.
 // callback - Receives `(err, articles)`.
 // 
-FeedRead.get = function(feed_url, callback) {
+FeedRead.get = function(feed_url, encoding, callback) {
   request(feed_url, {timeout: 5000}, function(err, res, body) {
     if (err) return callback(err);
+    if (encoding != "UTF-8") {
+      iconv = new Iconv(encoding, "UTF-8");
+      body = iconv.convert(body).toString();
+    }
     var type = FeedRead.identify(body);
     if (type == "atom") {
       FeedRead.atom(body, feed_url, callback);
