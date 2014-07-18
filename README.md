@@ -5,18 +5,20 @@
 [Node.js](http://nodejs.org/) module for parsing RSS and ATOM feeds into
 a common article object.
 
+Use [Iconv](https://github.com/bnoordhuis/node-iconv) module for encode feed source
+
 # Installation
 
-    $ npm install feed-read
+    $ npm install git://github.com/Photon79/feed-read-with-encoding.git
 
 # Usage
 
     var feed = require("feed-read");
 
-## `feed(url, callback)`
+## `feed(url, encoding, callback)`
 Fetch a feed.
 
-    feed("http://craphound.com/?feed=rss2", function(err, articles) {
+    feed("http://craphound.com/?feed=rss2", "CP1251", function(err, articles) {
       if (err) throw err;
       // Each article has the following properties:
       // 
