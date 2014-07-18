@@ -25,7 +25,7 @@
 , "dependencies":
   { "request":    "2.x.x"
   , "sax":        "0.3.x"
-  , "underscore": "1.x.x",
+  , "underscore": "1.x.x"
   , "iconv": "^2.1.4"
   }
 
